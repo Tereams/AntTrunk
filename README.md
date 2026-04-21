@@ -2,7 +2,7 @@
 A personal system for accumulating resources over time.
 
 
-Idea 
+Idea  
 
 Track where your money is.
 Understand how it moves.
