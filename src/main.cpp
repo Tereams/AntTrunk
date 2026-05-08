@@ -1,8 +1,8 @@
 #include <iostream>
 #include <vector>
-#include "include/Account.h"
-#include "include/Transaction.h"
-#include "include/FinanceLogic.h"
+#include "../include/Account.h"
+#include "../include/Transaction.h"
+#include "../include/FinanceLogic.h"
 
 int main() {
     std::vector<Account> accounts = {
