@@ -2,7 +2,7 @@
 #include <vector>
 #include "../include/Account.h"
 #include "../include/Transaction.h"
-#include "../include/FinanceLogic.h"
+#include "../include/Finance.h"
 
 int main() {
     std::vector<Account> accounts = {
@@ -19,7 +19,12 @@ int main() {
 
     auto balances = FinanceLogic::calculateAllBalances(accounts, transactions);
 
-    for (const auto& [account_name, balance] : balances) {
+    for (std::unordered_map<std::string, double>::const_iterator it = balances.begin();
+         it != balances.end();
+         ++it) {
+        const std::string& account_name = it->first;
+        double balance = it->second;
+
         std::cout << account_name << ": " << balance << std::endl;
     }
 

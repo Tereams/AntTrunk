@@ -1,4 +1,4 @@
-#include "include/FinanceLogic.h"
+#include "../include/Finance.h"
 
 double FinanceLogic::calculateBalance(
     const Account& account,
