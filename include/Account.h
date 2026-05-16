@@ -1,9 +1,6 @@
-#ifndef ANTTRUNK_ACCOUNT_HPP
-#define ANTTRUNK_ACCOUNT_HPP
+#pragma once
 
 #include <string>
-
-namespace anttrunk {
 
 enum class AccountType {
     Checking,
@@ -29,7 +26,3 @@ struct Account {
 
     std::string description;
 };
-
-} // namespace anttrunk
-
-#endif // ANTTRUNK_ACCOUNT_HPP

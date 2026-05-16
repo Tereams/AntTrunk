@@ -4,23 +4,31 @@
 
 enum class TransactionType {
     Income,
-    Expense
+    Expense,
+    Transfer
 };
 
 struct Transaction {
-    std::string date;       // format: YYYY-MM-DD
-    TransactionType type;
-    std::string account;    // account name
-    std::string category;   // e.g. groceries, rent, salary
-    double amount;
-    std::string note;
+    std::string id;
 
-    Transaction(
-        const std::string& date,
-        TransactionType type,
-        const std::string& account,
-        const std::string& category,
-        double amount,
-        const std::string& note = ""
-    );
+    TransactionType type = TransactionType::Expense;
+
+    // For most expenses, this can be the pre-tax amount.
+    // For income, transfer, or tax-free expenses, tax_rate can simply be 0.
+    double amount_before_tax = 0.0;
+    double tax_rate = 0.0;
+
+    // This can be calculated from amount_before_tax and tax_rate,
+    // but is stored here for convenience and explicitness.
+    double total_amount = 0.0;
+
+    std::string account_id;
+
+    // Used only when type == Transfer.
+    // For Expense or Income, this field can be empty.
+    std::string target_account_id;
+
+    std::string category;
+    std::string date; // Expected format: YYYY-MM-DD
+    std::string description;
 };
