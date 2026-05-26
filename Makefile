@@ -3,9 +3,7 @@ CXXFLAGS = -std=c++17 -Wall -Iinclude
 
 SRC = \
 	src/main.cpp \
-	src/Account.cpp \
-	src/Transaction.cpp \
-	src/FinanceLogic.cpp
+	src/finance_app.cpp
 
 TARGET = AntTrunk
 
