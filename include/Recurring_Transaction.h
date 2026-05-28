@@ -1,7 +1,7 @@
 #include <optional>
 #include <string>
 
-#include "Recurrence_Rule.h"
+#include "recurrence_rule.h"
 #include "transaction.h"
 
 struct RecurringTransaction {
