@@ -1,6 +1,7 @@
 // Finance.cpp
 
-#include "../include/Finance.h"
+#include "finance.h"
+#include "transaction.h"
 
 namespace finance {
 
@@ -12,18 +13,21 @@ double calculateBalance(
 
     for (const auto& transaction : transactions) {
 
-        if (transaction.account != account.name) {
+        if (transaction.account_id != account.id) {
             continue;
         }
 
         switch (transaction.type) {
 
             case TransactionType::Income:
-                balance += transaction.amount;
+                balance += transaction.amount_before_tax;
                 break;
 
             case TransactionType::Expense:
-                balance -= transaction.amount;
+                balance -= transaction.amount_before_tax;
+                break;
+
+            case TransactionType::Transfer:
                 break;
         }
     }
