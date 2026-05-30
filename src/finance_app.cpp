@@ -145,3 +145,33 @@ void FinanceApp::addAccount() {
 
     std::cout << "Account added successfully.\n";
 }
+
+
+std::string accountTypeToString(AccountType type)
+{
+    switch (type)
+    {
+        case AccountType::Checking:   return "Checking";
+        case AccountType::Savings:    return "Savings";
+        case AccountType::CreditCard: return "CreditCard";
+        case AccountType::Cash:       return "Cash";
+        case AccountType::Investment: return "Investment";
+        default:                      return "Other";
+    }
+}
+
+void FinanceApp::listAccounts() const
+{
+    std::cout << "ID\tName\tBank\tType\tBalance\n";
+
+    for (const auto& account : accounts)
+    {
+        std::cout
+            << account.id << '\t'
+            << account.name << '\t'
+            << account.bank_name << '\t'
+            << accountTypeToString(account.type) << '\t'
+            << account.initial_balance
+            << '\n';
+    }
+}
