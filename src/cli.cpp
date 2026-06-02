@@ -1,0 +1,161 @@
+#include "cli.h"
+#include "cli_utils.h"
+
+#include <iostream>
+#include <string>
+
+Account readAccountFromCLI()
+{
+    Account account;
+    account.id = promptString("Account ID: ");
+    account.name = promptString("Name: ");
+    account.bank_name = promptString("Bank Name: ");
+    account.initial_balance = promptDouble("Initial Balance: ");
+    account.currency = promptString("Currency: ");
+    account.description = promptString("Description: ");
+
+    return account;
+}
+
+Transaction readTransactionFromCLI()
+{
+    Transaction t;
+
+    t.id = promptString("Transaction ID: ");
+
+    int type_choice =
+        promptInt("Type (0=Income, 1=Expense, 2=Transfer): ");
+
+    t.type = static_cast<TransactionType>(type_choice);
+
+    t.amount_before_tax =
+        promptDouble("Amount before tax: ");
+
+    t.tax_rate =
+        promptDouble("Tax rate (e.g. 0.1 for 10%): ");
+
+    t.total_amount =
+        t.amount_before_tax * (1.0 + t.tax_rate);
+
+    t.account_id =
+        promptString("Account ID: ");
+
+    if (t.type == TransactionType::Transfer)
+    {
+        t.target_account_id =
+            promptString("Target Account ID: ");
+    }
+
+    t.category =
+        promptString("Category: ");
+
+    t.date =
+        promptString("Date (YYYY-MM-DD): ");
+
+    t.description =
+        promptString("Description: ");
+
+    return t;
+}
+
+RecurringTransaction readRecurringTransactionFromCLI()
+{
+    RecurringTransaction rt;
+
+    rt.id =
+        promptString("ID: ");
+
+    rt.name =
+        promptString("Name: ");
+
+    int type_choice =
+        promptInt("Type (0=Income, 1=Expense, 2=Transfer): ");
+
+    rt.type =
+        static_cast<TransactionType>(type_choice);
+
+    rt.amount =
+        promptDouble("Amount: ");
+
+    rt.account_id =
+        promptString("Account ID: ");
+
+    if (rt.type == TransactionType::Transfer)
+    {
+        rt.target_account_id =
+            promptString("Target Account ID: ");
+    }
+
+    rt.category =
+        promptString("Category: ");
+
+    int frequency_choice =
+        promptInt(
+            "Frequency (0=Daily, 1=Weekly, 2=Biweekly, 3=Monthly, 4=Yearly): "
+        );
+
+    rt.recurrence_rule.frequency =
+        static_cast<Frequency>(frequency_choice);
+
+    rt.recurrence_rule.interval =
+        promptInt("Interval: ");
+
+    if (rt.recurrence_rule.frequency == Frequency::Monthly)
+    {
+        int day =
+            promptInt("Day of month (1-31): ");
+
+        rt.recurrence_rule.day_of_month = day;
+    }
+
+    if (rt.recurrence_rule.frequency == Frequency::Weekly ||
+        rt.recurrence_rule.frequency == Frequency::Biweekly)
+    {
+        int weekday =
+            promptInt("Weekday (0=Mon ... 6=Sun): ");
+
+        rt.recurrence_rule.day_of_week =
+            static_cast<Weekday>(weekday);
+    }
+
+    rt.start_date =
+        promptString("Start date (YYYY-MM-DD): ");
+
+    std::string end =
+        promptString("End date (empty if none): ");
+
+    if (!end.empty())
+    {
+        rt.end_date = end;
+    }
+
+    rt.description =
+        promptString("Description: ");
+
+    return rt;
+}
+
+
+void printAccount(const Account& account){
+    std::cout
+        << "ID: " << account.id << '\n'
+        << "Name: " << account.name << '\n'
+        << "Bank: " << account.bank_name << '\n'
+        << "Balance: "
+        << account.initial_balance
+        << '\n';
+}
+
+void printTransaction(const Transaction& t){
+    std::cout
+        << "ID: " << t.id << '\n'
+        << "Amount: " << t.total_amount << '\n'
+        << "Category: " << t.category << '\n';
+}
+
+void printRecurringTransaction(const RecurringTransaction& rt){
+    std::cout
+        << "ID: " << rt.id << '\n'
+        << "Name: " << rt.name << '\n'
+        << "Amount: " << rt.amount << '\n';
+}
