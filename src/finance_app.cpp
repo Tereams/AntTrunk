@@ -1,3 +1,4 @@
+#include "cli.h"
 #include "finance_app.h"
 
 #include <iostream>
@@ -200,52 +201,6 @@ std::string transactionTypeToString(TransactionType type)
     }
 }
 
-void FinanceApp::addTransaction()
-{
-    Transaction t;
-
-    std::cout << "Transaction ID: ";
-    std::getline(std::cin, t.id);
-
-    int type_choice;
-
-    std::cout << "Type (0=Income, 1=Expense, 2=Transfer): ";
-    std::cin >> type_choice;
-
-    t.type = static_cast<TransactionType>(type_choice);
-
-    std::cout << "Amount before tax: ";
-    std::cin >> t.amount_before_tax;
-
-    std::cout << "Tax rate (e.g. 0.1 for 10%): ";
-    std::cin >> t.tax_rate;
-
-    t.total_amount =
-        t.amount_before_tax * (1.0 + t.tax_rate);
-
-    std::cin.ignore();
-
-    std::cout << "Account ID: ";
-    std::getline(std::cin, t.account_id);
-
-    if (t.type == TransactionType::Transfer)
-    {
-        std::cout << "Target Account ID: ";
-        std::getline(std::cin, t.target_account_id);
-    }
-
-    std::cout << "Category: ";
-    std::getline(std::cin, t.category);
-
-    std::cout << "Date (YYYY-MM-DD): ";
-    std::getline(std::cin, t.date);
-
-    std::cout << "Description: ";
-    std::getline(std::cin, t.description);
-
-    transactions.push_back(t);
-}
-
 std::ostream& operator<<(std::ostream& os,
                          const Transaction& t)
 {
@@ -310,98 +265,15 @@ std::string weekdayToString(Weekday d)
     return "Unknown";
 }
 
-void FinanceApp::addRecurringTransaction()
-{
-    RecurringTransaction rt;
+void FinanceApp::addTransaction(){
+    transactions.push_back(readTransactionFromCLI());
+    std::cout << "Transaction added successfully.\n";
+}
 
-    std::cout << "ID: ";
-    std::getline(std::cin, rt.id);
+void FinanceApp::addRecurringTransaction(){
+    recurring_transactions.push_back(readRecurringTransactionFromCLI());
 
-    std::cout << "Name: ";
-    std::getline(std::cin, rt.name);
-
-    int type_choice;
-
-    std::cout << "Type (0=Income, 1=Expense, 2=Transfer): ";
-    std::cin >> type_choice;
-
-    rt.type = static_cast<TransactionType>(type_choice);
-
-    std::cout << "Amount: ";
-    std::cin >> rt.amount;
-
-    std::cin.ignore();
-
-    std::cout << "Account ID: ";
-    std::getline(std::cin, rt.account_id);
-
-    if (rt.type == TransactionType::Transfer)
-    {
-        std::cout << "Target Account ID: ";
-        std::getline(std::cin, rt.target_account_id);
-    }
-
-    std::cout << "Category: ";
-    std::getline(std::cin, rt.category);
-
-    int frequency_choice;
-
-    std::cout
-        << "Frequency "
-        << "(0=Daily,1=Weekly,2=Biweekly,3=Monthly,4=Yearly): ";
-
-    std::cin >> frequency_choice;
-
-    rt.recurrence_rule.frequency =
-        static_cast<Frequency>(frequency_choice);
-
-    std::cout << "Interval: ";
-    std::cin >> rt.recurrence_rule.interval;
-
-    if (rt.recurrence_rule.frequency == Frequency::Monthly)
-    {
-        int day;
-
-        std::cout << "Day of month (1-31): ";
-        std::cin >> day;
-
-        rt.recurrence_rule.day_of_month = day;
-    }
-
-    if (rt.recurrence_rule.frequency == Frequency::Weekly ||
-        rt.recurrence_rule.frequency == Frequency::Biweekly)
-    {
-        int weekday;
-
-        std::cout
-            << "Weekday "
-            << "(0=Mon ... 6=Sun): ";
-
-        std::cin >> weekday;
-
-        rt.recurrence_rule.day_of_week =
-            static_cast<Weekday>(weekday);
-    }
-
-    std::cin.ignore();
-
-    std::cout << "Start date (YYYY-MM-DD): ";
-    std::getline(std::cin, rt.start_date);
-
-    std::string end;
-
-    std::cout << "End date (empty if none): ";
-    std::getline(std::cin, end);
-
-    if (!end.empty())
-    {
-        rt.end_date = end;
-    }
-
-    std::cout << "Description: ";
-    std::getline(std::cin, rt.description);
-
-    recurring_transactions.push_back(rt);
+    std::cout << "Recurring transaction added successfully.\n";
 }
 
 void FinanceApp::listRecurringTransactions() const
