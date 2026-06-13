@@ -3,26 +3,21 @@
 #include <iostream>
 #include <limits>
 
-std::string promptString(const std::string& message)
-{
+std::string promptString(const std::string& message){
     std::cout << message;
-
     std::string value;
     std::getline(std::cin, value);
 
     return value;
 }
 
-int promptInt(const std::string& message)
-{
+int promptInt(const std::string& message){
     int value;
 
-    while (true)
-    {
+    while (true){
         std::cout << message;
 
-        if (std::cin >> value)
-        {
+        if (std::cin >> value){
             std::cin.ignore(
                 std::numeric_limits<std::streamsize>::max(),
                 '\n'
