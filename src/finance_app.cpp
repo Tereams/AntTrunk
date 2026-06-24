@@ -1,5 +1,6 @@
 #include "cli.h"
 #include "finance_app.h"
+#include "account_db.h"
 
 #include <iostream>
 #include <limits>
@@ -78,8 +79,12 @@ void FinanceApp::handleOption(int option) {
 
 
 void FinanceApp::addAccount() {
-    accounts.push_back(readAccountFromCLI());
-    std::cout << "Account added successfully.\n";
+        Account account = readAccountFromCLI();
+        if (account_db::insert(db_, account)) {
+            std::cout << "Account added successfully.\n";
+        } else {
+            std::cout << "Failed to add account.\n";
+        }
 }
 
 void FinanceApp::addTransaction(){

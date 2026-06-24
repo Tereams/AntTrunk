@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <sqlite3.h>
 
 #include "account.h"
 #include "transaction.h"
@@ -12,6 +13,7 @@ public:
 
 private:
     bool running = true;
+    sqlite3* db_ = nullptr;
 
     std::vector<Account> accounts;
     std::vector<Transaction> transactions;
