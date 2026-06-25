@@ -1,10 +1,30 @@
 #include "cli.h"
 #include "finance_app.h"
 #include "account_db.h"
+#include "transaction_db.h"
+#include "recurring_transaction_db.h"
 
 #include <iostream>
 #include <limits>
 //#include <string>
+
+FinanceApp::FinanceApp(){
+    sqlite3_open("finance.db", &db_);
+}
+
+FinanceApp::~FinanceApp(){
+    if(db_){
+            sqlite3_close(db_);
+        }
+}
+
+bool FinanceApp::initialize() {
+    return
+        account_db::create_table(db_) &&
+        transaction_db::create_table(db_) &&
+        recurring_transaction_db::create_table(db_);
+
+}
 
 void FinanceApp::run() {
     while (running) {

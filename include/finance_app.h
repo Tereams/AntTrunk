@@ -9,6 +9,9 @@
 
 class FinanceApp {
 public:
+    FinanceApp();
+    ~FinanceApp();
+    bool initialize();
     void run();
 
 private:
