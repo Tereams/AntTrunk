@@ -118,10 +118,12 @@ void FinanceApp::addRecurringTransaction(){
 }
 
 void FinanceApp::listAccounts() const {
-    for (const auto& account : accounts){
-        printAccount(account);
+    auto accounts = account_db::get_all(db_);
+        for (const auto& account : accounts) {
+            printAccount(account);
         }
 }
+
 void FinanceApp::listTransactions() const{
     for (const auto& t : transactions){
         printTransaction(t);
