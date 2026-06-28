@@ -125,7 +125,10 @@ void FinanceApp::listAccounts() const {
 }
 
 void FinanceApp::listTransactions() const{
-    for (const auto& t : transactions){
+    auto transactions =
+        transaction_db::get_all(db_);
+
+    for (const auto& t : transactions) {
         printTransaction(t);
     }
 }
