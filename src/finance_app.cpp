@@ -113,8 +113,10 @@ void FinanceApp::addTransaction(){
 }
 
 void FinanceApp::addRecurringTransaction(){
-    recurring_transactions.push_back(readRecurringTransactionFromCLI());
-    std::cout << "Recurring transaction added successfully.\n";
+    RecurringTransaction rt =
+        readRecurringTransactionFromCLI();
+
+    recurring_transaction_db::insert(db_, rt);
 }
 
 void FinanceApp::listAccounts() const {
