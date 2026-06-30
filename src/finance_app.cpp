@@ -137,7 +137,10 @@ void FinanceApp::listTransactions() const{
 
 void FinanceApp::listRecurringTransactions() const
 {
-    for (const auto& rt : recurring_transactions){
+    auto recurring =
+        recurring_transaction_db::get_all(db_);
+
+    for (const auto& rt : recurring) {
         printRecurringTransaction(rt);
     }
 }
