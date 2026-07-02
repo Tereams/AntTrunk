@@ -6,6 +6,7 @@
 
 Account readAccountFromCLI(){
     Account account;
+
     account.id = promptString("Account ID: ");
     account.name = promptString("Name: ");
     account.bank_name = promptString("Bank Name: ");
