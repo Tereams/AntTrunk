@@ -1,12 +1,34 @@
 
-#include "finance_app.h"
+#include "mui_app.h"
+#include "tui_app.h"
 
-int main() {
-    FinanceApp app;
-    if (!app.initialize()) {
-            return 1;
-        }
+#include "account_db.h"
+#include "transaction_db.h"
+#include "recurring_transaction_db.h"
 
-    app.run();
+#include <sqlite3.h>
+#include <iostream>
+
+int main(int argc, char* argv[]) {
+    sqlite3* db = nullptr;
+
+    if (sqlite3_open("finance.db", &db) != SQLITE_OK) {
+        std::cerr << "Failed to open database.\n";
+        return 1;
+    }
+
+    account_db::create_table(db);
+    transaction_db::create_table(db);
+    recurring_transaction_db::create_table(db);
+
+    if (argc > 1 && std::string(argv[1]) == "--cli") {
+        FinanceApp app;
+        app.run();
+    } else {
+        TuiApp app(db);
+        app.run();
+    }
+
+    sqlite3_close(db);
     return 0;
 }
