@@ -4,7 +4,7 @@ LDFLAGS = -lsqlite3
 
 SRC = \
 	src/main.cpp \
-	src/finance_app.cpp \
+	src/ui/mui_app.cpp \
 	src/cli.cpp \
 	src/cli_utils.cpp \
 	src/account_db.cpp \

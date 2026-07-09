@@ -1,7 +1,7 @@
 // Finance.cpp
 
 #include "finance.h"
-#include "transaction.h"
+#include "model/transaction.h"
 
 namespace finance {
 

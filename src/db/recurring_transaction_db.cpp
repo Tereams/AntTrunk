@@ -1,4 +1,4 @@
-#include "recurring_transaction_db.h"
+#include "db/recurring_transaction_db.h"
 
 #include <iostream>
 

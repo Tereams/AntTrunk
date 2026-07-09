@@ -1,10 +1,10 @@
 
-#include "mui_app.h"
-#include "tui_app.h"
+#include "ui/mui_app.h"
+#include "ui/tui_app.h"
 
-#include "account_db.h"
-#include "transaction_db.h"
-#include "recurring_transaction_db.h"
+#include "db/account_db.h"
+#include "db/transaction_db.h"
+#include "db/recurring_transaction_db.h"
 
 #include <sqlite3.h>
 #include <iostream>

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "transaction.h"
+#include "model/transaction.h"
 
 #include <sqlite3.h>
 #include <optional>

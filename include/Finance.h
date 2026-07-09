@@ -4,8 +4,8 @@
 #include <string>
 #include <unordered_map>
 
-#include "transaction.h"
-#include "account.h"
+#include "model/transaction.h"
+#include "model/account.h"
 
 namespace finance {
 

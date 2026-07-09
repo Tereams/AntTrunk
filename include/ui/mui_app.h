@@ -3,9 +3,9 @@
 #include <vector>
 #include <sqlite3.h>
 
-#include "account.h"
-#include "transaction.h"
-#include "recurring_transaction.h"
+#include "model/account.h"
+#include "model/transaction.h"
+#include "model/recurring_transaction.h"
 
 class FinanceApp {
 public:

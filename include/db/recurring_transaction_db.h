@@ -1,6 +1,6 @@
 #pragma once
 
-#include "recurring_transaction.h"
+#include "model/recurring_transaction.h"
 
 #include <sqlite3.h>
 #include <optional>
