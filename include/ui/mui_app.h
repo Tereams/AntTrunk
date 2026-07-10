@@ -7,10 +7,10 @@
 #include "model/transaction.h"
 #include "model/recurring_transaction.h"
 
-class FinanceApp {
+class MUIApp {
 public:
-    FinanceApp();
-    ~FinanceApp();
+    MUIApp();
+    ~MUIApp();
     bool initialize();
     void run();
 
