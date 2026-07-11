@@ -1,24 +1,24 @@
-#include "cli.h"
-#include "finance_app.h"
-#include "account_db.h"
-#include "transaction_db.h"
-#include "recurring_transaction_db.h"
+#include "ui/mui_io.h"
+#include "ui/mui_app.h"
+#include "db/account_db.h"
+#include "db/transaction_db.h"
+#include "db/recurring_transaction_db.h"
 
 #include <iostream>
 #include <limits>
 //#include <string>
 
-FinanceApp::FinanceApp(){
+MUIApp::MUIApp(){
     sqlite3_open("finance.db", &db_);
 }
 
-FinanceApp::~FinanceApp(){
+MUIApp::~MUIApp(){
     if(db_){
             sqlite3_close(db_);
         }
 }
 
-bool FinanceApp::initialize() {
+bool MUIApp::initialize() {
     return
         account_db::create_table(db_) &&
         transaction_db::create_table(db_) &&
@@ -26,7 +26,7 @@ bool FinanceApp::initialize() {
 
 }
 
-void FinanceApp::run() {
+void MUIApp::run() {
     while (running) {
         showMainMenu();
 
@@ -36,7 +36,7 @@ void FinanceApp::run() {
     }
 }
 
-void FinanceApp::showMainMenu() const {
+void MUIApp::showMainMenu() const {
     std::cout << "\n=== AntTrunk Main Menu ===\n";
     std::cout << "1. Add account\n";
     std::cout << "2. List accounts\n";
@@ -48,7 +48,7 @@ void FinanceApp::showMainMenu() const {
     std::cout << "Choose an option: ";
 }
 
-int FinanceApp::readOption() const {
+int MUIApp::readOption() const {
     int option;
 
     while (!(std::cin >> option)) {
@@ -63,12 +63,12 @@ int FinanceApp::readOption() const {
     return option;
 }
 
-void FinanceApp::exitApp() {
+void MUIApp::exitApp() {
     running = false;
     std::cout << "Goodbye.\n";
 }
 
-void FinanceApp::handleOption(int option) {
+void MUIApp::handleOption(int option) {
     switch (option) {
         case 1:
             addAccount();
@@ -98,7 +98,7 @@ void FinanceApp::handleOption(int option) {
 }
 
 
-void FinanceApp::addAccount() {
+void MUIApp::addAccount() {
         Account account = readAccountFromCLI();
         if (account_db::insert(db_, account)) {
             std::cout << "Account added successfully.\n";
@@ -107,26 +107,26 @@ void FinanceApp::addAccount() {
         }
 }
 
-void FinanceApp::addTransaction(){
+void MUIApp::addTransaction(){
     Transaction t = readTransactionFromCLI();
     transaction_db::insert(db_, t);
 }
 
-void FinanceApp::addRecurringTransaction(){
+void MUIApp::addRecurringTransaction(){
     RecurringTransaction rt =
         readRecurringTransactionFromCLI();
 
     recurring_transaction_db::insert(db_, rt);
 }
 
-void FinanceApp::listAccounts() const {
+void MUIApp::listAccounts() const {
     auto accounts = account_db::get_all(db_);
         for (const auto& account : accounts) {
             printAccount(account);
         }
 }
 
-void FinanceApp::listTransactions() const{
+void MUIApp::listTransactions() const{
     auto transactions =
         transaction_db::get_all(db_);
 
@@ -135,7 +135,7 @@ void FinanceApp::listTransactions() const{
     }
 }
 
-void FinanceApp::listRecurringTransactions() const
+void MUIApp::listRecurringTransactions() const
 {
     auto recurring =
         recurring_transaction_db::get_all(db_);
