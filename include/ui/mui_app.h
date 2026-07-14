@@ -9,18 +9,11 @@
 
 class MUIApp {
 public:
-    MUIApp();
-    ~MUIApp();
-    bool initialize();
+    explicit MUIApp(sqlite3* db);
     void run();
 
 private:
-    bool running = true;
     sqlite3* db_ = nullptr;
-
-    std::vector<Account> accounts;
-    std::vector<Transaction> transactions;
-    std::vector<RecurringTransaction> recurring_transactions;
 
 private:
     void showMainMenu() const;
