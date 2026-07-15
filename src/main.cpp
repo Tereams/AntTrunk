@@ -22,7 +22,7 @@ int main(int argc, char* argv[]) {
     recurring_transaction_db::create_table(db);
 
     if (argc > 1 && std::string(argv[1]) == "--cli") {
-        MUIApp app;
+        MUIApp app(db);
         app.run();
     } else {
         TuiApp app(db);

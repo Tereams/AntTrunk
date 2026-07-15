@@ -8,23 +8,7 @@
 #include <limits>
 //#include <string>
 
-MUIApp::MUIApp(){
-    sqlite3_open("finance.db", &db_);
-}
-
-MUIApp::~MUIApp(){
-    if(db_){
-            sqlite3_close(db_);
-        }
-}
-
-bool MUIApp::initialize() {
-    return
-        account_db::create_table(db_) &&
-        transaction_db::create_table(db_) &&
-        recurring_transaction_db::create_table(db_);
-
-}
+MUIApp::MUIApp(sqlite3* db){}
 
 void MUIApp::run() {
     while (running) {

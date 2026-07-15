@@ -13,6 +13,7 @@ public:
     void run();
 
 private:
+    bool running;
     sqlite3* db_ = nullptr;
 
 private:
