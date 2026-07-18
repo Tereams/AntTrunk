@@ -1,19 +1,26 @@
 CXX = clang++
-CXXFLAGS = -std=c++17 -Wall -Iinclude
-LDFLAGS = -lsqlite3
 
-SRC = \
-	src/main.cpp \
-	src/ui/mui_app.cpp \
-	src/cli.cpp \
-	src/cli_utils.cpp \
-	src/account_db.cpp \
-	src/transaction_db.cpp \
-	src/recurring_transaction_db.cpp
+FTXUI_PREFIX := $(shell brew --prefix ftxui)
+
+CXXFLAGS = \
+	-std=c++17 \
+	-Wall \
+	-Iinclude \
+	-I$(FTXUI_PREFIX)/include
+
+LDFLAGS = \
+	-lsqlite3 \
+	-L$(FTXUI_PREFIX)/lib \
+	-lftxui-component \
+	-lftxui-dom \
+	-lftxui-screen
+
+SRC := $(shell find src -name "*.cpp")
 
 TARGET = build/AntTrunk
 
 all:
+	mkdir -p build
 	$(CXX) $(CXXFLAGS) $(SRC) -o $(TARGET) $(LDFLAGS)
 
 run: all
