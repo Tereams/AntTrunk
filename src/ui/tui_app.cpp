@@ -145,6 +145,15 @@ void TuiApp::run() {
 
   auto quit_button = Button("Quit", screen.ExitLoopClosure());
   auto accounts_back_button = Button("Back", go_back);
+  auto accounts_add_button = Button("Add", [] {
+    // TODO: add account
+  });
+  auto accounts_edit_button = Button("Edit", [] {
+    // TODO: edit selected account
+  });
+  auto accounts_delete_button = Button("Delete", [] {
+    // TODO: delete selected account
+  });
   auto transactions_back_button = Button("Back", go_back);
   auto recurring_back_button = Button("Back", go_back);
   auto main_page = Container::Vertical({
