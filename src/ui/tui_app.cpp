@@ -161,10 +161,16 @@ void TuiApp::run() {
       open_button,
       quit_button,
   });
+  auto accounts_actions = Container::Horizontal({
+      accounts_add_button,
+      accounts_edit_button,
+      accounts_delete_button,
+      accounts_back_button,
 
+  });
   auto accounts_page = Container::Vertical({
       accounts_menu,
-      accounts_back_button,
+      accounts_actions,
   });
 
   auto transactions_page = Container::Vertical({
