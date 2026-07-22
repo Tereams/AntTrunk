@@ -211,11 +211,19 @@ void TuiApp::run() {
              size(WIDTH, GREATER_THAN, 45);
     case Page::Accounts:
       return vbox({
-                 text("Accounts") | bold | center,
-                 separator(),
-                 accounts_menu->Render() | flex,
-                 separator(),
-                 accounts_back_button->Render() | center,
+                text("Accounts") | bold | center,
+                separator(),
+                accounts_menu->Render() | flex,
+                separator(),
+                hbox({
+                    accounts_add_button->Render(),
+                    text("  "),
+                    accounts_edit_button->Render(),
+                    text("  "),
+                    accounts_delete_button->Render(),
+                    text("  "),
+                    accounts_back_button->Render(),
+                }) | center,
              }) |
              border |
              size(WIDTH, GREATER_THAN, 45);
