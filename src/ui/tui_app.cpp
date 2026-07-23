@@ -65,6 +65,7 @@ enum class Page : int {
     Accounts = 1,
     Transactions = 2,
     RecurringTransactions = 3,
+    AddAccount = 4,
 };
 
 int page_index(Page page) {
