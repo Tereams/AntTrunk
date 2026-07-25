@@ -155,6 +155,9 @@ void TuiApp::run() {
   auto accounts_delete_button = Button("Delete", [] {
     // TODO: delete selected account
   });
+  auto add_account_cancel_button = Button("Cancel", [&] {
+    go_to(Page::Accounts);
+  });
   auto transactions_back_button = Button("Back", go_back);
   auto recurring_back_button = Button("Back", go_back);
   auto main_page = Container::Vertical({
