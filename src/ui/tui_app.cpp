@@ -195,6 +195,7 @@ void TuiApp::run() {
           accounts_page,
           transactions_page,
           recurring_page,
+          add_account_page,
       },
       &current_page
   );
