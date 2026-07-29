@@ -254,6 +254,16 @@ void TuiApp::run() {
              }) |
              border |
              size(WIDTH, GREATER_THAN, 45);
+    case Page::AddAccount:
+        return vbox({
+                text("Add Account") | bold | center,
+                separator(),
+                text("Account form will be added here.") | center,
+                separator(),
+                add_account_cancel_button->Render() | center,
+            }) |
+            border |
+            size(WIDTH, GREATER_THAN, 45);
     }
     return text("Unknown page");
   });
