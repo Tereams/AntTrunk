@@ -165,7 +165,9 @@ void TuiApp::run() {
   auto accounts_delete_button = Button("Delete", [] {
     // TODO: delete selected account
   });
-  
+  auto add_account_save_button = Button("Save", [&] {
+    // TODO: validate and save account
+  });
   auto add_account_cancel_button = Button("Cancel", [&] {
     go_to(Page::Accounts);
   });
