@@ -128,6 +128,13 @@ void TuiApp::run() {
       Menu(&transaction_items, &transaction_selected);
   auto recurring_menu =
       Menu(&recurring_items, &recurring_selected);
+  auto add_account_name_input =
+      Input(&new_account_name, "Account name");
+  auto add_account_currency_input =
+      Input(&new_account_currency, "Currency");
+  auto add_account_balance_input =
+      Input(&new_account_balance, "Initial balance");
+
   auto open_button = Button("Open", [&] {
     switch (main_selected) {
     case 0:
@@ -158,6 +165,7 @@ void TuiApp::run() {
   auto accounts_delete_button = Button("Delete", [] {
     // TODO: delete selected account
   });
+  
   auto add_account_cancel_button = Button("Cancel", [&] {
     go_to(Page::Accounts);
   });
