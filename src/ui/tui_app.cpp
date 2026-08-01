@@ -159,6 +159,9 @@ void TuiApp::run() {
   auto accounts_add_button = Button("Add", [&] {
       go_to(Page::AddAccount);
   });
+
+
+
   auto accounts_edit_button = Button("Edit", [] {
     // TODO: edit selected account
   });
