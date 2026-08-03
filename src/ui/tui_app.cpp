@@ -195,8 +195,16 @@ void TuiApp::run() {
       accounts_menu,
       accounts_actions,
   });
-  auto add_account_page = Container::Vertical({
+  auto add_account_buttons = Container::Horizontal({
+      add_account_save_button,
       add_account_cancel_button,
+  });
+
+  auto add_account_page = Container::Vertical({
+      add_account_name_input,
+      add_account_currency_input,
+      add_account_balance_input,
+      add_account_buttons,
   });
   auto transactions_page = Container::Vertical({
       transactions_menu,
