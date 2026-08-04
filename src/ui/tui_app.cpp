@@ -281,16 +281,31 @@ void TuiApp::run() {
              }) |
              border |
              size(WIDTH, GREATER_THAN, 45);
-    case Page::AddAccount:
-        return vbox({
-                text("Add Account") | bold | center,
-                separator(),
-                text("Account form will be added here.") | center,
-                separator(),
-                add_account_cancel_button->Render() | center,
-            }) |
-            border |
-            size(WIDTH, GREATER_THAN, 45);
+             case Page::AddAccount:
+               return vbox({
+                          text("Add Account") | bold | center,
+                          separator(),
+                          hbox({
+                              text("Name:            "),
+                              add_account_name_input->Render() | flex,
+                          }),
+                          hbox({
+                              text("Currency:        "),
+                              add_account_currency_input->Render() | flex,
+                          }),
+                          hbox({
+                              text("Initial Balance: "),
+                              add_account_balance_input->Render() | flex,
+                          }),
+                          separator(),
+                          hbox({
+                              add_account_save_button->Render(),
+                              text("  "),
+                              add_account_cancel_button->Render(),
+                          }) | center,
+                      }) |
+                      border |
+                      size(WIDTH, GREATER_THAN, 50);
     }
     return text("Unknown page");
   });
