@@ -61,20 +61,18 @@ std::vector<std::string> load_recurring_items(sqlite3 *db) {
 }
 
 enum class Page : int {
-    Main = 0,
-    Accounts = 1,
-    Transactions = 2,
-    RecurringTransactions = 3,
-    AddAccount = 4,
+  Main = 0,
+  Accounts = 1,
+  Transactions = 2,
+  RecurringTransactions = 3,
+  AddAccount = 4,
 };
 
-int page_index(Page page) {
-    return static_cast<int>(page);
-}
+int page_index(Page page) { return static_cast<int>(page); }
 
 } // namespace
 
-TuiApp::TuiApp(sqlite3 *db): db_(db) {}
+TuiApp::TuiApp(sqlite3 *db) : db_(db) {}
 
 void TuiApp::run() {
   using namespace ftxui;
@@ -113,25 +111,16 @@ void TuiApp::run() {
     recurring_selected = 0;
   };
 
-  auto go_to = [&](Page page) {
-    current_page = page_index(page);
-  };
+  auto go_to = [&](Page page) { current_page = page_index(page); };
 
-  auto go_back = [&] {
-    go_to(Page::Main);
-  };
+  auto go_back = [&] { go_to(Page::Main); };
 
   auto main_menu = Menu(&main_items, &main_selected);
-  auto accounts_menu =
-      Menu(&account_items, &account_selected);
-  auto transactions_menu =
-      Menu(&transaction_items, &transaction_selected);
-  auto recurring_menu =
-      Menu(&recurring_items, &recurring_selected);
-  auto add_account_name_input =
-      Input(&new_account_name, "Account name");
-  auto add_account_currency_input =
-      Input(&new_account_currency, "Currency");
+  auto accounts_menu = Menu(&account_items, &account_selected);
+  auto transactions_menu = Menu(&transaction_items, &transaction_selected);
+  auto recurring_menu = Menu(&recurring_items, &recurring_selected);
+  auto add_account_name_input = Input(&new_account_name, "Account name");
+  auto add_account_currency_input = Input(&new_account_currency, "Currency");
   auto add_account_balance_input =
       Input(&new_account_balance, "Initial balance");
 
@@ -156,11 +145,7 @@ void TuiApp::run() {
 
   auto quit_button = Button("Quit", screen.ExitLoopClosure());
   auto accounts_back_button = Button("Back", go_back);
-  auto accounts_add_button = Button("Add", [&] {
-      go_to(Page::AddAccount);
-  });
-
-
+  auto accounts_add_button = Button("Add", [&] { go_to(Page::AddAccount); });
 
   auto accounts_edit_button = Button("Edit", [] {
     // TODO: edit selected account
@@ -224,8 +209,7 @@ void TuiApp::run() {
           recurring_page,
           add_account_page,
       },
-      &current_page
-  );
+      &current_page);
 
   auto renderer = Renderer(root, [&]() -> Element {
     switch (static_cast<Page>(current_page)) {
@@ -241,26 +225,24 @@ void TuiApp::run() {
                      quit_button->Render(),
                  }) | center,
              }) |
-             border |
-             size(WIDTH, GREATER_THAN, 45);
+             border | size(WIDTH, GREATER_THAN, 45);
     case Page::Accounts:
       return vbox({
-                text("Accounts") | bold | center,
-                separator(),
-                accounts_menu->Render() | flex,
-                separator(),
-                hbox({
-                    accounts_add_button->Render(),
-                    text("  "),
-                    accounts_edit_button->Render(),
-                    text("  "),
-                    accounts_delete_button->Render(),
-                    text("  "),
-                    accounts_back_button->Render(),
-                }) | center,
+                 text("Accounts") | bold | center,
+                 separator(),
+                 accounts_menu->Render() | flex,
+                 separator(),
+                 hbox({
+                     accounts_add_button->Render(),
+                     text("  "),
+                     accounts_edit_button->Render(),
+                     text("  "),
+                     accounts_delete_button->Render(),
+                     text("  "),
+                     accounts_back_button->Render(),
+                 }) | center,
              }) |
-             border |
-             size(WIDTH, GREATER_THAN, 45);
+             border | size(WIDTH, GREATER_THAN, 45);
     case Page::Transactions:
       return vbox({
                  text("Transactions") | bold | center,
@@ -269,8 +251,7 @@ void TuiApp::run() {
                  separator(),
                  transactions_back_button->Render() | center,
              }) |
-             border |
-             size(WIDTH, GREATER_THAN, 45);
+             border | size(WIDTH, GREATER_THAN, 45);
     case Page::RecurringTransactions:
       return vbox({
                  text("Recurring Transactions") | bold | center,
@@ -279,33 +260,31 @@ void TuiApp::run() {
                  separator(),
                  recurring_back_button->Render() | center,
              }) |
-             border |
-             size(WIDTH, GREATER_THAN, 45);
-             case Page::AddAccount:
-               return vbox({
-                          text("Add Account") | bold | center,
-                          separator(),
-                          hbox({
-                              text("Name:            "),
-                              add_account_name_input->Render() | flex,
-                          }),
-                          hbox({
-                              text("Currency:        "),
-                              add_account_currency_input->Render() | flex,
-                          }),
-                          hbox({
-                              text("Initial Balance: "),
-                              add_account_balance_input->Render() | flex,
-                          }),
-                          separator(),
-                          hbox({
-                              add_account_save_button->Render(),
-                              text("  "),
-                              add_account_cancel_button->Render(),
-                          }) | center,
-                      }) |
-                      border |
-                      size(WIDTH, GREATER_THAN, 50);
+             border | size(WIDTH, GREATER_THAN, 45);
+    case Page::AddAccount:
+      return vbox({
+                 text("Add Account") | bold | center,
+                 separator(),
+                 hbox({
+                     text("Name:            "),
+                     add_account_name_input->Render() | flex,
+                 }),
+                 hbox({
+                     text("Currency:        "),
+                     add_account_currency_input->Render() | flex,
+                 }),
+                 hbox({
+                     text("Initial Balance: "),
+                     add_account_balance_input->Render() | flex,
+                 }),
+                 separator(),
+                 hbox({
+                     add_account_save_button->Render(),
+                     text("  "),
+                     add_account_cancel_button->Render(),
+                 }) | center,
+             }) |
+             border | size(WIDTH, GREATER_THAN, 50);
     }
     return text("Unknown page");
   });
@@ -315,13 +294,11 @@ void TuiApp::run() {
       screen.Exit();
       return true;
     }
-    if (event == Event::Escape &&
-        current_page != page_index(Page::Main)) {
+    if (event == Event::Escape && current_page != page_index(Page::Main)) {
       go_back();
       return true;
     }
-    if (event == Event::Return &&
-        current_page == page_index(Page::Main)) {
+    if (event == Event::Return && current_page == page_index(Page::Main)) {
       switch (main_selected) {
       case 0:
         refresh_accounts();
