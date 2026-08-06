@@ -294,9 +294,20 @@ void TuiApp::run() {
       screen.Exit();
       return true;
     }
-    if (event == Event::Escape && current_page != page_index(Page::Main)) {
-      go_back();
-      return true;
+    if (event == Event::Escape) {
+      if (current_page == page_index(Page::AddAccount)) {
+        new_account_name.clear();
+        new_account_currency = "USD";
+        new_account_balance.clear();
+
+        go_to(Page::Accounts);
+        return true;
+      }
+
+      if (current_page != page_index(Page::Main)) {
+        go_back();
+        return true;
+      }
     }
     if (event == Event::Return && current_page == page_index(Page::Main)) {
       switch (main_selected) {
