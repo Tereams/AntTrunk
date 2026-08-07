@@ -171,8 +171,7 @@ void TuiApp::run() {
           open_button,
           quit_button,
       },
-      &main_focus
-  );
+      &main_focus);
   auto accounts_actions = Container::Horizontal({
       accounts_add_button,
       accounts_edit_button,
@@ -294,6 +293,10 @@ void TuiApp::run() {
   });
 
   auto app = CatchEvent(renderer, [&](Event event) {
+    if (current_page == page_index(Page::Main) && event == Event::Tab) {
+      main_focus = (main_focus + 1) % 3;
+      return true;
+    }
     if (event == Event::Escape) {
       if (current_page == page_index(Page::AddAccount)) {
         new_account_name.clear();
