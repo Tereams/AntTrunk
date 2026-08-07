@@ -164,11 +164,15 @@ void TuiApp::run() {
   });
   auto transactions_back_button = Button("Back", go_back);
   auto recurring_back_button = Button("Back", go_back);
-  auto main_page = Container::Vertical({
-      main_menu,
-      open_button,
-      quit_button,
-  });
+  int main_focus = 0;
+  auto main_page = Container::Vertical(
+      {
+          main_menu,
+          open_button,
+          quit_button,
+      },
+      &main_focus
+  );
   auto accounts_actions = Container::Horizontal({
       accounts_add_button,
       accounts_edit_button,
