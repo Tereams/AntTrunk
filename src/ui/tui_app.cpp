@@ -290,10 +290,6 @@ void TuiApp::run() {
   });
 
   auto app = CatchEvent(renderer, [&](Event event) {
-    if (event == Event::Character('q')) {
-      screen.Exit();
-      return true;
-    }
     if (event == Event::Escape) {
       if (current_page == page_index(Page::AddAccount)) {
         new_account_name.clear();
@@ -308,25 +304,6 @@ void TuiApp::run() {
         go_back();
         return true;
       }
-    }
-    if (event == Event::Return && current_page == page_index(Page::Main)) {
-      switch (main_selected) {
-      case 0:
-        refresh_accounts();
-        go_to(Page::Accounts);
-        break;
-      case 1:
-        refresh_transactions();
-        go_to(Page::Transactions);
-        break;
-      case 2:
-        refresh_recurring();
-        go_to(Page::RecurringTransactions);
-        break;
-      default:
-        break;
-      }
-      return true;
     }
     return false;
   });
