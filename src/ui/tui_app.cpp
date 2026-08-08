@@ -172,17 +172,18 @@ void TuiApp::run() {
           quit_button,
       },
       &main_focus);
-  auto accounts_actions = Container::Horizontal({
-      accounts_add_button,
-      accounts_edit_button,
-      accounts_delete_button,
-      accounts_back_button,
 
-  });
-  auto accounts_page = Container::Vertical({
-      accounts_menu,
-      accounts_actions,
-  });
+  int accounts_focus = 0;
+  auto accounts_page = Container::Vertical(
+      {
+          accounts_menu,
+          accounts_add_button,
+          accounts_edit_button,
+          accounts_delete_button,
+          accounts_back_button,
+      },
+      &accounts_focus
+  );
   auto add_account_buttons = Container::Horizontal({
       add_account_save_button,
       add_account_cancel_button,
@@ -295,6 +296,11 @@ void TuiApp::run() {
   auto app = CatchEvent(renderer, [&](Event event) {
     if (current_page == page_index(Page::Main) && event == Event::Tab) {
       main_focus = (main_focus + 1) % 3;
+      return true;
+    }
+    if (current_page == page_index(Page::Accounts) &&
+        event == Event::Tab) {
+      accounts_focus = (accounts_focus + 1) % 5;
       return true;
     }
     if (event == Event::Escape) {
