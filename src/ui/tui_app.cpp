@@ -83,9 +83,8 @@ void TuiApp::run() {
   int account_selected = 0;
   int transaction_selected = 0;
   int recurring_selected = 0;
-  std::string new_account_name;
-  std::string new_account_currency = "USD";
-  std::string new_account_balance;
+  Account editing_account;
+  std::string editing_account_balance = "0";
 
   std::vector<std::string> main_items = {
       "Accounts",
