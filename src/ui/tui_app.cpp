@@ -118,10 +118,12 @@ void TuiApp::run() {
   auto accounts_menu = Menu(&account_items, &account_selected);
   auto transactions_menu = Menu(&transaction_items, &transaction_selected);
   auto recurring_menu = Menu(&recurring_items, &recurring_selected);
-  auto add_account_name_input = Input(&new_account_name, "Account name");
-  auto add_account_currency_input = Input(&new_account_currency, "Currency");
+  auto add_account_name_input =
+      Input(&editing_account.name, "Account name");
+  auto add_account_currency_input =
+      Input(&editing_account.currency, "Currency");
   auto add_account_balance_input =
-      Input(&new_account_balance, "Initial balance");
+      Input(&editing_account_balance, "Initial balance");
 
   auto open_button = Button("Open", [&] {
     switch (main_selected) {
@@ -144,7 +146,11 @@ void TuiApp::run() {
 
   auto quit_button = Button("Quit", screen.ExitLoopClosure());
   auto accounts_back_button = Button("Back", go_back);
-  auto accounts_add_button = Button("Add", [&] { go_to(Page::AddAccount); });
+  auto accounts_add_button = Button("Add", [&] {
+    editing_account = Account{};
+    editing_account_balance = "0";
+    go_to(Page::AddAccount);
+  });
 
   auto accounts_edit_button = Button("Edit", [] {
     // TODO: edit selected account
