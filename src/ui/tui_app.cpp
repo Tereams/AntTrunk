@@ -162,9 +162,8 @@ void TuiApp::run() {
     // TODO: validate and save account
   });
   auto add_account_cancel_button = Button("Cancel", [&] {
-    new_account_name.clear();
-    new_account_currency = "USD";
-    new_account_balance.clear();
+    editing_account = Account{};
+    editing_account_balance = "0";
     go_to(Page::Accounts);
   });
   auto transactions_back_button = Button("Back", go_back);
