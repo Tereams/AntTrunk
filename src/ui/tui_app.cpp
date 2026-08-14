@@ -147,9 +147,12 @@ void TuiApp::run() {
   auto quit_button = Button("Quit", screen.ExitLoopClosure());
   auto accounts_back_button = Button("Back", go_back);
   auto accounts_add_button = Button("Add", [&] {
+    account_form_mode = AccountFormMode::Add;
+
     editing_account = Account{};
     editing_account_balance = "0";
-    go_to(Page::AddAccount);
+
+    go_to(Page::AccountForm);
   });
 
   auto accounts_edit_button = Button("Edit", [] {
