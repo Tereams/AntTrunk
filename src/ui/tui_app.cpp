@@ -65,9 +65,12 @@ enum class Page : int {
   Accounts = 1,
   Transactions = 2,
   RecurringTransactions = 3,
-  AddAccount = 4,
+  AccountForm = 4,
 };
-
+enum class AccountFormMode {
+    Add,
+    Edit
+};
 int page_index(Page page) { return static_cast<int>(page); }
 
 } // namespace
