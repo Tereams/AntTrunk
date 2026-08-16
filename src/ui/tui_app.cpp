@@ -79,7 +79,7 @@ TuiApp::TuiApp(sqlite3 *db) : db_(db) {}
 
 void TuiApp::run() {
   using namespace ftxui;
-
+  AccountFormMode account_form_mode = AccountFormMode::Add;
   auto screen = ScreenInteractive::TerminalOutput();
   int current_page = page_index(Page::Main);
   int main_selected = 0;
