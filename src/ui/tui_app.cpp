@@ -159,7 +159,19 @@ void TuiApp::run() {
   });
 
   auto accounts_edit_button = Button("Edit", [] {
-    // TODO: edit selected account
+      if (account_selected < 0 ||
+
+            account_selected >= static_cast<int>(accounts.size())) {
+
+          return;
+
+        }
+        account_form_mode = AccountFormMode::Edit;
+        editing_account = accounts[account_selected];
+        editing_account_balance =
+            std::to_string(editing_account.initial_balance);
+
+        go_to(Page::AccountForm);
   });
   auto accounts_delete_button = Button("Delete", [] {
     // TODO: delete selected account
