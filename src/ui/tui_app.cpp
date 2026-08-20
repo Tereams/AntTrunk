@@ -160,9 +160,7 @@ void TuiApp::run() {
 
   auto accounts_edit_button = Button("Edit", [] {
       if (account_selected < 0 ||
-
             account_selected >= static_cast<int>(accounts.size())) {
-
           return;
 
         }
