@@ -163,6 +163,7 @@ void TuiApp::run() {
             account_selected >= static_cast<int>(accounts.size())) {
           return;
 
+
         }
         account_form_mode = AccountFormMode::Edit;
         editing_account = accounts[account_selected];
