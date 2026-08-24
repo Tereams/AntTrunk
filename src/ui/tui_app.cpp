@@ -164,6 +164,7 @@ void TuiApp::run() {
           return;
 
 
+
         }
         account_form_mode = AccountFormMode::Edit;
         editing_account = accounts[account_selected];
