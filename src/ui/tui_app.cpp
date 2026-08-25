@@ -229,6 +229,7 @@ void TuiApp::run() {
 
   auto root = Container::Tab(
       {
+
           main_page,
           accounts_page,
           transactions_page,
