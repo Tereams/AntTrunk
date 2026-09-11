@@ -24,7 +24,6 @@ std::vector<std::string> load_account_items(sqlite3 *db) {
     items.push_back(a.name + "  " + a.currency + "  " +
                     money(a.initial_balance));
   }
-
   if (items.empty()) {
     items.push_back("(no accounts)");
   }
