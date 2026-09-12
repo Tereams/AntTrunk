@@ -27,7 +27,6 @@ std::vector<std::string> load_account_items(sqlite3 *db) {
   if (items.empty()) {
     items.push_back("(no accounts)");
   }
-
   return items;
 }
 
